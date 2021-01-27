@@ -1,6 +1,14 @@
 # fullstack-candidate-testing
 
-## Instructions
+## Instructions for build
+
+1. Enter to the folder
+2. Run npm install
+3. Run npm run dev
+
+[Site in production](https://sleepy-varahamihira-092b3d.netlify.app/)
+
+## Instructions for development
 
 
 1. Initialize a .git repo here. Then clone the main branch and use the following naming convention for the new branch: **firstname-lastname-YYYY-MM-DD**. If your name is John Doe, and today's date is 2021-01-17, then the new branch should be called **john-doe-2021-01-17**.
