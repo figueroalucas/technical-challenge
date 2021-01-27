@@ -15,7 +15,7 @@ export const searchJobs = (keyword, filters) => {
               jobToAdd.items.push(job);
             }
           }
-          matchedJobBatch.push(jobToAdd)
+          matchedJobBatch.push(jobToAdd);
         }
       }
     }
@@ -48,17 +48,8 @@ export const searchJobs = (keyword, filters) => {
   return matchedJobBatch;
 };
 
-export default async (req, res) => {
-  const {
-    query: { keyword, job_type, work_schedule, experience, department },
-  } = req;
-  res.statusCode = 200;
+export const getJobs = (keyword, job_type, work_schedule, experience, department) => {
   let jobsToReturn = [...jobs];
-
-  // this timeout emulates unstable network connection, do not remove this one
-  // you need to figure out how to guarantee that client side will render
-  // correct results even if server-side can't finish replies in the right order
-  await new Promise((resolve) => setTimeout(resolve, 1000 * Math.random()));
 
   if (job_type || work_schedule || experience || department) {
     jobsToReturn = searchJobs(null, {
@@ -71,5 +62,21 @@ export default async (req, res) => {
     jobsToReturn = searchJobs(keyword);
   }
 
-  res.json({ jobs: jobsToReturn });
+  return jobsToReturn;
+};
+
+export default async (req, res) => {
+  const {
+    query: { keyword, job_type, work_schedule, experience, department },
+  } = req;
+  res.statusCode = 200;
+
+  // this timeout emulates unstable network connection, do not remove this one
+  // you need to figure out how to guarantee that client side will render
+  // correct results even if server-side can't finish replies in the right order
+  await new Promise((resolve) => setTimeout(resolve, 1000 * Math.random()));
+
+  res.json({
+    jobs: getJobs(keyword, job_type, work_schedule, experience, department),
+  });
 };

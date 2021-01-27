@@ -3,6 +3,7 @@ import JobBatch from '../components/JobBatch';
 import SearchForm from '../components/SearchForm';
 import Axios from 'axios';
 import Footer from '../components/Footer';
+import { getJobs } from './api/jobs'
 
 const Index = ({ jobs }) => (
   <div className="bg-gray-100">
@@ -18,12 +19,7 @@ const Index = ({ jobs }) => (
 );
 
 export async function getStaticProps(context) {
-  const uri = `${process.env.HOST}/api/jobs`;
-
-  const {
-    data: { jobs },
-  } = await Axios.get(uri);
-
+  const jobs = getJobs()
   return {
     props: {
       jobs,
